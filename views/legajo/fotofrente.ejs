@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate')%>
+
+<form class="row g-3" action="/legajo/<%= legajo._id %>/fotofrente" method="POST" enctype="multipart/form-data">
+  <div class="col-md-6">
+    <% if (typeof legajo.fotoFrenteDNI.contentType !== "undefined") { %>
+    <img src="data:image/<%=legajo.fotoFrenteDNI.contentType%>;base64,<%=legajo.fotoFrenteDNI.data.toString('base64')%>" class="d-block w-50" alt="...">
+    <% } %>
+  </div>
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <label for="imagenDNI" class="form-label">Foto DNI</label>
+    <input type="file" class="form-control" id="imagenDNI" name="legajo[imagenDNI]" accept="image/*" capture="camera">
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Validar identidad</button>
+  </div>
+</form>

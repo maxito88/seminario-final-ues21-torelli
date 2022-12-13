@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate')%>
+    <form class="row g-3" action="/legajo/nuevo" method="POST">
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="legajo[nombre]">
+        </div>
+        <div class="col-md-6">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" class="form-control" id="apellido" name="legajo[apellido]">
+        </div>
+        <div class="col-md-6">
+          <label for="nroDocumento" class="form-label">Numero de Documento</label>
+          <input type="text" class="form-control" id="nroDocumento" name="legajo[nroDocumento]">
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" placeholder="algo@algo.com" id="email" name="legajo[email]">
+        </div>
+        <div class="col-md-12">
+          <label for="nroLegajo" class="form-label">Numero de Legajo</label>
+          <input type="text" class="form-control" id="nroLegajo" name="legajo[nroLegajo]">
+        </div>                               
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Crear Tramite</button>
+        </div>
+      </form>
+    

@@ -1,0 +1,51 @@
+<% layout('layouts/boilerplate')%>
+<div class="d-grid gap-2 col-6 mx-auto mb-5">
+  <a href="/legajo/nuevo" class="btn btn-primary">Nuevo</a>
+</div>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <% for( let legajo of legajos ) { %>
+  <div class="col">
+    <div class="card h-100">
+      <div class="card-header text-muted fs-4 fw-bold">
+        <a href="/legajo/<%= legajo._id %>/validar"> <%= legajo.nroLegajo %> </a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"> <%= legajo.nombre %> <%= legajo.apellido %> </h5>
+        <hr class="border border-primary border-3 opacity-75">
+        <p class="card-text">ID de Tramite: <%= legajo._id %> </p>
+        <p class="card-text">Numero de Documento: <%= legajo.nroDocumento %> </p>
+      </div>
+      <div class="card-footer">
+        <% if (legajo.esValidado) { %>
+        <!-- <small class="btn btn-success"> Identidad Validada </small> -->
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFotoDNI<%= legajo._id %>" aria-expanded="false" aria-controls="collapseFotoDNI<%= legajo._id %>">
+          Identidad Validada
+        </button>
+        <div class="collapse" id="collapseFotoDNI<%= legajo._id %>">
+          <div class="card card-body">
+            <img src="data:image/<%=legajo.fotoFrenteDNI.contentType%>;base64,<%=legajo.fotoFrenteDNI.data.toString('base64')%>" class="d-block img-responsive" alt="...">
+          </div>
+        </div>
+
+
+        <% } else { %>
+        <small class="btn btn-danger"> SIN Identidad Validada </small>
+        <% } %>
+
+        <% if (legajo.esFirmado) { %>
+        <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFirma<%= legajo._id %>" aria-expanded="false" aria-controls="collapseFirma<%= legajo._id %>">
+          Legajo Firmado
+        </button>
+        <div class="collapse" id="collapseFirma<%= legajo._id %>">
+          <div class="card card-body">
+            <img src="data:image/<%=legajo.firmaImagen%>" class="d-block w-50" alt="...">
+          </div>
+        </div>
+        <% } else { %>
+        <small class="btn btn-danger"> Legajo NO Firmado </small>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <% } %>
+</div>
