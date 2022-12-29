@@ -12,17 +12,19 @@
       <div class="card-body">
         <h5 class="card-title"> <%= legajo.nombre %> <%= legajo.apellido %> </h5>
         <hr class="border border-primary border-3 opacity-75">
-        <p class="card-text">ID de Tramite: <%= legajo._id %> </p>
-        <p class="card-text">Numero de Documento: <%= legajo.nroDocumento %> </p>
+        <p class="card-text"><b>ID de Tramite:</b> <%= legajo._id %> </p>
+        <p class="card-text"><b>Numero de Documento:</b> <%= legajo.nroDocumento %> </p>
+        <p class="card-text"><b>Documento a firmar: </p>
+        <iframe src="data:application/pdf;base64,<%=legajo.documentoFirmar.data.toString('base64')%>"></iframe>
       </div>
       <div class="card-footer">
         <% if (legajo.esValidado) { %>
-        <!-- <small class="btn btn-success"> Identidad Validada </small> -->
         <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFotoDNI<%= legajo._id %>" aria-expanded="false" aria-controls="collapseFotoDNI<%= legajo._id %>">
           Identidad Validada
         </button>
         <div class="collapse" id="collapseFotoDNI<%= legajo._id %>">
           <div class="card card-body">
+            <p class="card-text"><b>Lectura PDF417:</b> <%= legajo.lecturaPDF417 %> </p>
             <img src="data:image/<%=legajo.fotoFrenteDNI.contentType%>;base64,<%=legajo.fotoFrenteDNI.data.toString('base64')%>" class="d-block img-responsive" alt="...">
           </div>
         </div>

@@ -1,27 +1,71 @@
 <% layout('layouts/boilerplate')%>
-    <form class="row g-3" action="/legajo/nuevo" method="POST">
-        <div class="col-md-6">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombre" name="legajo[nombre]">
-        </div>
-        <div class="col-md-6">
-          <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" class="form-control" id="apellido" name="legajo[apellido]">
-        </div>
-        <div class="col-md-6">
-          <label for="nroDocumento" class="form-label">Numero de Documento</label>
-          <input type="text" class="form-control" id="nroDocumento" name="legajo[nroDocumento]">
-        </div>
-        <div class="col-md-6">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" placeholder="algo@algo.com" id="email" name="legajo[email]">
-        </div>
-        <div class="col-md-12">
-          <label for="nroLegajo" class="form-label">Numero de Legajo</label>
-          <input type="text" class="form-control" id="nroLegajo" name="legajo[nroLegajo]">
-        </div>                               
-        <div class="col-12">
-          <button type="submit" class="btn btn-primary">Crear Tramite</button>
-        </div>
-      </form>
-    
+<form class="row g-3 needs-validation" action="/legajo/nuevo" method="POST" enctype="multipart/form-data" novalidate>
+  <div class="col-md-6">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombre" name="legajo[nombre]" required>
+    <div class="invalid-feedback">
+      Debe ingresar un nombre.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="apellido" class="form-label">Apellido</label>
+    <input type="text" class="form-control" id="apellido" name="legajo[apellido]" required>
+    <div class="invalid-feedback">
+      Debe ingresar un apellido.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="nroDocumento" class="form-label">Número de Documento</label>
+    <input type="text" class="form-control" id="nroDocumento" name="legajo[nroDocumento]" required>
+    <div class="invalid-feedback">
+      Debe ingresar un número de documento.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" placeholder="algo@algo.com" id="email" name="legajo[email]" required>
+    <div class="invalid-feedback">
+      Debe ingresar un email.
+    </div>
+  </div>
+  <div class="col-md-12">
+    <label for="nroLegajo" class="form-label">Numero de Legajo</label>
+    <input type="text" class="form-control" id="nroLegajo" name="legajo[nroLegajo]" required>
+    <div class="invalid-feedback">
+      Debe ingresar un número de legajo.
+    </div>
+  </div>
+  <div class="col-md-6">
+    <label for="documentoFirmar" class="form-label">Documento a firmar en formato PDF</label>
+    <input type="file" class="form-control" id="documentoFirmar" name="legajo[documentoFirmar]" accept=".pdf" required>
+    <div class="invalid-feedback">
+      Debe cargar un archivo PDF.
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Crear Tramite</button>
+  </div>
+</form>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>

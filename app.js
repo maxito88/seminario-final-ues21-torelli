@@ -32,84 +32,6 @@ db.once("open", () => {
   console.log("Base de datos conectada");
 });
 
-// axios
-//   .get("https://swapi.dev/api/people/1/")
-//   .then((res) => {
-//     console.log("RESPONSE: ", res);
-//   })
-//   .catch((e) => {
-//     console.log("ERROR! ", e);
-//   });
-
-// DESCOMENTAR CUANDO ESTE EL SERVICIO UP
-/* axios
-  .get(process.env.LECTOR_PDF417)
-  .then((res) => {
-    //console.log("RESPONSE: ", res);
-    console.log("RESPONSE: ", res.status);
-  })
-  .catch((e) => {
-    console.log("ERROR! ", e);
-  }); */
-
-//const getLegajo = Legajo.findById("63963ee009d8e1b752660cbf");
-
-// DESCOMENTAR CUANDO ESTE EL SERVICIO UP
-/* Legajo.findById("639656e800082d66b19933ff", function (err, docs) {
-  if (err) {
-    console.log(err);
-  } else {
-    // docs.imagenDNI.forEach((element) => {
-    //   console.log(element.contentType);
-    // });
-    //const imagBase64 = docs.imagenDNI[0].data.toString("base64");
-    const imagBase64 = docs.fotoFrenteDNI.data.toString("base64");
-
-    axios
-      .post(process.env.LECTOR_PDF417, {
-        contents: imagBase64,
-      })
-      .then(function (response) {
-        // console.log(response);
-        console.log("Status: " + response.status);
-        console.log("CampoResult: " + response.data.result);
-        console.log("BooleanoSuccess: " + response.data.sucess);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-}); */
-
-/* const validarIdentidad = async (docID) => {
-  Legajo.findById(docID, function (err, docs) {
-    if (err) {
-      console.log(err);
-    } else {
-      // docs.imagenDNI.forEach((element) => {
-      //   console.log(element.contentType);
-      // });
-      //const imagBase64 = docs.imagenDNI[0].data.toString("base64");
-      const imagBase64 = docs.fotoFrenteDNI.data.toString("base64");
-
-      axios
-        .post(process.env.LECTOR_PDF417, {
-          contents: imagBase64,
-        })
-        .then(function (response) {
-          // console.log(response);
-          console.log("Status: " + response.status);
-          console.log("CampoResult: " + response.data.result);
-          console.log("BooleanoSuccess: " + response.data.sucess);
-          console.log(docID);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  });
-}; */
-
 const getPos = (str, caracterBusqueda, ocurrencia) => {
   return str.split(caracterBusqueda, ocurrencia).join(caracterBusqueda).length;
 };
@@ -126,8 +48,6 @@ const compararDNI = (lecturaPDF417, nroDocumentoTramite) => {
     return false;
   }
 };
-
-//const app = express();
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -164,23 +84,9 @@ app.get("/legajo/nuevo", (req, res) => {
   res.render("legajo/nuevo");
 });
 
-app.post("/legajo/nuevo", async (req, res) => {
-  const legajoBody = {
-    nroLegajo: req.body.legajo.nroLegajo,
-    nombre: req.body.legajo.nombre,
-    apellido: req.body.legajo.apellido,
-    nroDocumento: req.body.legajo.nroDocumento,
-    email: req.body.legajo.email,
-  };
-  const legajo = new Legajo(legajoBody);
-  await legajo.save();
-
-  res.redirect("/legajo");
-});
-
-/* app.post(
+app.post(
   "/legajo/nuevo",
-  upload.single("legajo[imagenDNI]"),
+  upload.single("legajo[documentoFirmar]"),
   async (req, res) => {
     const legajoBody = {
       nroLegajo: req.body.legajo.nroLegajo,
@@ -188,17 +94,18 @@ app.post("/legajo/nuevo", async (req, res) => {
       apellido: req.body.legajo.apellido,
       nroDocumento: req.body.legajo.nroDocumento,
       email: req.body.legajo.email,
-      fotoFrenteDNI: {
+      documentoFirmar: {
         data: fs.readFileSync(
           path.join(__dirname + "/uploads/" + req.file.filename)
         ),
-        contentType: "image/png",
+        contentType: "application/pdf",
       },
     };
+
     const legajo = new Legajo(legajoBody);
     await legajo.save();
 
-    // Logica para borrar la imagen local
+    //Logica para borrar la imagen local
     const dirBorrarImg = path.join(__dirname + "/uploads/" + req.file.filename);
     fs.unlink(dirBorrarImg, (err) => {
       if (err) {
@@ -209,11 +116,10 @@ app.post("/legajo/nuevo", async (req, res) => {
 
     res.redirect("/legajo");
   }
-); */
+);
 
 app.get("/legajo/:id/validar", async (req, res) => {
   const legajo = await Legajo.findById(req.params.id);
-  //console.log(legajo);
   res.render("legajo/validar", { legajo });
 });
 

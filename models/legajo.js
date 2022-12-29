@@ -20,14 +20,11 @@ const LegajoSchema = new Schema({
   esValidado: { type: Boolean, default: false },
   esFirmado: { type: Boolean, default: false },
   lecturaPDF417: { type: String },
-  //imagenDNI: [ImageSchema],
-  /*   imagenDNI: [
-    {
-      data: Buffer,
-      contentType: String,
-    },
-  ], */
   fotoFrenteDNI: {
+    data: Buffer,
+    contentType: String,
+  },
+  documentoFirmar: {
     data: Buffer,
     contentType: String,
   },
