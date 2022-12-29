@@ -8,7 +8,6 @@ const multer = require("multer");
 const axios = require("axios").default;
 
 // MODELOS
-//const imgModel = require("./model");
 const Legajo = require("./models/legajo");
 
 const fs = require("fs");
@@ -21,15 +20,16 @@ const dbUrl = process.env.MONGO_URL;
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
-  //useCreateIndex: true,
   useUnifiedTopology: true,
-  //useFindAndModify: false,
 });
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
+db.on(
+  "error",
+  console.error.bind(console, "Error de conexion a la base de datos:")
+);
 db.once("open", () => {
-  console.log("Database connected");
+  console.log("Base de datos conectada");
 });
 
 // axios
